@@ -20,18 +20,20 @@ public class UpdateQuantity extends HttpServlet {
         String url = "/index.jsp";
 
         String action = request.getParameter("action");
-        if (action == null) action = "join";
+        if (action == null)
+            action = "join";
         if (action.equals("join")) {
             url = "/index.jsp";
-        }
-        else if (action.equals("update")){
+        } else if (action.equals("update")) {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productCode = Integer.parseInt(request.getParameter("productCode"));
 
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
 
-            cart.updateQuantity(productCode, quantity);
+            if (cart != null) {
+                cart.updateQuantity(productCode, quantity);
+            }
 
             session.setAttribute("cart", cart);
             url = "/cart.jsp";
@@ -39,5 +41,11 @@ public class UpdateQuantity extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
     }
 }

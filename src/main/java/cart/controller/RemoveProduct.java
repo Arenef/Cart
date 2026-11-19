@@ -21,22 +21,31 @@ public class RemoveProduct extends HttpServlet {
         String url = "/index.jsp";
 
         String action = request.getParameter("action");
-        if(action == null) url = "/index.jsp";
-
-        if(action.equals("join")) {
+        if (action == null)
             url = "/index.jsp";
-        }
-        else if(action.equals("remove")) {
+
+        if (action.equals("join")) {
+            url = "/index.jsp";
+        } else if (action.equals("remove")) {
             int productCode = Integer.parseInt(request.getParameter("productCode"));
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
 
-            cart.removeProduct(productCode);
+            if (cart != null) {
+                cart.removeProduct(productCode);
+            }
+
             session.setAttribute("cart", cart);
             url = "/cart.jsp";
         }
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
     }
 }

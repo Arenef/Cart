@@ -19,10 +19,9 @@ public class Checkout extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if(action == null) {
+        if (action == null) {
             url = "/index.jsp";
-        }
-        else if(action.equals("checkout")) {
+        } else if (action.equals("checkout")) {
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
 
@@ -35,5 +34,11 @@ public class Checkout extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
     }
 }

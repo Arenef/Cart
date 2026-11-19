@@ -18,15 +18,14 @@ import java.util.List;
 @WebServlet("/addToCart")
 public class AddToCart extends HttpServlet {
     @Override
-    public void doPost (HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "/index.jsp";
         String action = request.getParameter("action");
 
         if (action == null) {
             action = "join";
-        }
-        else if (action.equals("add")){
+        } else if (action.equals("add")) {
             int productCode = Integer.parseInt(request.getParameter("productCode"));
             String description = request.getParameter("description");
             double price = Double.parseDouble(request.getParameter("price"));
@@ -35,7 +34,9 @@ public class AddToCart extends HttpServlet {
             LineProduct lineProduct = new LineProduct(product, 1);
             Cart cart = (Cart) session.getAttribute("cart");
 
-            if (cart == null) cart = new Cart();
+            if (cart == null) {
+                cart = new Cart();
+            }
             cart.addProduct(lineProduct);
 
             session.setAttribute("cart", cart);
@@ -45,5 +46,11 @@ public class AddToCart extends HttpServlet {
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
     }
 }

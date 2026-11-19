@@ -7,10 +7,11 @@ import java.util.List;
 public class Cart implements Serializable {
     private List<LineProduct> cart;
 
-    public Cart(){
+    public Cart() {
         this.cart = new ArrayList<>();
     }
-    public Cart(List<LineProduct> cart){
+
+    public Cart(List<LineProduct> cart) {
         this.cart = new ArrayList<>();
         this.cart = cart;
     }
@@ -23,21 +24,24 @@ public class Cart implements Serializable {
         this.cart = cart;
     }
 
-    public void addProduct(LineProduct lineProduct){
+    public void addProduct(LineProduct lineProduct) {
         boolean isAdded = false;
-        for(int i = 0 ; i < cart.size() ; i++) {
-            if (cart.get(i).getProduct().getProductCode() == lineProduct.getProduct().getProductCode()){
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).getProduct().getProductCode() == lineProduct.getProduct().getProductCode()) {
                 cart.get(i).setQuantity(cart.get(i).getQuantity() + 1);
                 isAdded = true;
                 break;
             }
         }
-        if (!isAdded) cart.add(lineProduct);
+        if (!isAdded)
+            cart.add(lineProduct);
     }
 
-    public void updateQuantity(int productCode, int quantity){
-        for (int i = 0 ; i < cart.size() ; i++) {
-            if(cart.get(i).getProduct().getProductCode() == productCode) {
+    public void updateQuantity(int productCode, int quantity) {
+        if (quantity < 0)
+            return;
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).getProduct().getProductCode() == productCode) {
                 cart.get(i).setQuantity(quantity);
                 return;
             }
@@ -45,7 +49,7 @@ public class Cart implements Serializable {
     }
 
     public void removeProduct(int productCode) {
-        for (int i = 0 ; i < cart.size() ; i++) {
+        for (int i = 0; i < cart.size(); i++) {
             if (cart.get(i).getProduct().getProductCode() == productCode) {
                 cart.remove(i);
                 return;
@@ -55,7 +59,7 @@ public class Cart implements Serializable {
 
     public double checkout() {
         double sum = 0;
-        for(int i = 0 ; i < cart.size() ; i++) {
+        for (int i = 0; i < cart.size(); i++) {
             sum += cart.get(i).calculateAmount();
         }
         return sum;
