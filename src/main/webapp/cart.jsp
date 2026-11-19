@@ -35,9 +35,9 @@
                 </form>
             </td>
             <td>${lineProduct.product.description}</td>
-            <td>${lineProduct.product.price}</td>
+            <td>$${lineProduct.product.price}</td>
             <td>
-                <fmt:formatNumber value="${lineProduct.calculateAmount()}" pattern="0.00"/>
+                $<fmt:formatNumber value="${lineProduct.calculateAmount()}" pattern="0.00"/>
             </td>
             <td>
                 <form action="removeProduct" method="post">

@@ -28,15 +28,17 @@
                 <td>${lineProduct.product.description}</td>
                 <td>${lineProduct.quantity}</td>
                 <td>
-                    <fmt:formatNumber value="${lineProduct.calculateAmount()}" pattern="0.00"/>
+                    $<fmt:formatNumber value="${lineProduct.calculateAmount()}" pattern="0.00"/>
                 </td>
         </tr>
     </c:forEach>
 
     <tr>
-        <td><b>Total</b></td>
+        <th>Total</th>
         <td></td>
-        <td>${sessionScope.cart.checkout()}</td>
+        <td>
+            $<fmt:formatNumber value="${sessionScope.cart.checkout()}" pattern="0.00"/>
+        </td>
     </tr>
 
 </table>
