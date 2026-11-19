@@ -49,7 +49,13 @@
 
 </table>
 <p><b>To change the quantity </b>, enter the new quantity and click on the Update button</p>
-<button>Continue Shopping</button><br>
-<button>Checkout</button>
+<form name="" method="post">
+    <input type="hidden" name="action" value="return">
+    <input type="submit" name="continueShopping" value="Continue Shopping">
+</form>
+<form name="" method="post">
+    <input type="hidden" name="action" value="checkOut">
+    <input type="submit" name="checkOut" value="Checkout">
+</form>
 </body>
 </html>
