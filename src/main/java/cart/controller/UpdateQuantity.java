@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
+
 @WebServlet("/updateQuantity")
 public class UpdateQuantity extends HttpServlet {
     @Override
