@@ -15,6 +15,9 @@ public class Product implements Serializable {
         this.productCode = productCode;
     }
 
+    public Product() {
+    }
+
     public Product(int productCode, String description, double price) {
         this.productCode = productCode;
         this.description = description;

@@ -1,5 +1,6 @@
 package cart.controller;
 
+import cart.dto.Cart;
 import cart.dto.LineProduct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,26 +17,21 @@ public class UpdateQuantity extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "/index.html";
+        String url = "/index.jsp";
 
         String action = request.getParameter("action");
         if (action == null) action = "join";
         if (action.equals("join")) {
-            url = "/index.html";
+            url = "/index.jsp";
         }
         else if (action.equals("update")){
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             int productCode = Integer.parseInt(request.getParameter("productCode"));
 
             HttpSession session = request.getSession();
-            List<LineProduct> cart = (List<LineProduct>) session.getAttribute("cart");
+            Cart cart = (Cart) session.getAttribute("cart");
 
-            for (int i = 0 ; i < cart.size() ; i++) {
-                if(cart.get(i).getProduct().getProductCode() == productCode) {
-                    cart.get(i).setQuantity(quantity);
-                    break;
-                }
-            }
+            cart.updateQuantity(productCode, quantity);
 
             session.setAttribute("cart", cart);
             url = "/cart.jsp";

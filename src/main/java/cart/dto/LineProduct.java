@@ -10,6 +10,7 @@ public class LineProduct implements Serializable {
         this.product = product;
         this.quantity = quantity;
     }
+
     public Product getProduct() {
         return product;
     }
@@ -24,5 +25,9 @@ public class LineProduct implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double calculateAmount() {
+        return product.getPrice() * quantity;
     }
 }

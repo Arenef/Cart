@@ -1,5 +1,6 @@
 package cart.controller;
 
+import cart.dto.Cart;
 import cart.dto.LineProduct;
 import cart.dto.Product;
 import jakarta.servlet.ServletException;
@@ -17,24 +18,20 @@ public class RemoveProduct extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "/index.html";
+        String url = "/index.jsp";
 
         String action = request.getParameter("action");
-        if(action == null) url = "/index.html";
+        if(action == null) url = "/index.jsp";
 
         if(action.equals("join")) {
-            url = "/index.html";
+            url = "/index.jsp";
         }
         else if(action.equals("remove")) {
             int productCode = Integer.parseInt(request.getParameter("productCode"));
             HttpSession session = request.getSession();
-            List<LineProduct> cart = (List<LineProduct>) session.getAttribute("cart");
-            for (int i = 0; i < cart.size(); i++) {
-                if (cart.get(i).getProduct().getProductCode() == productCode) {
-                    cart.remove(i);
-                    break;
-                }
-            }
+            Cart cart = (Cart) session.getAttribute("cart");
+
+            cart.removeProduct(productCode);
             session.setAttribute("cart", cart);
             url = "/cart.jsp";
         }
