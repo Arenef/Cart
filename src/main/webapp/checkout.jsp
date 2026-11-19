@@ -22,7 +22,6 @@
         <th>Quantity</th>
         <th>Amount</th>
     </tr>
-
     <c:forEach var="lineProduct" items="${sessionScope.cart.getCart()}">
         <tr>
                 <td>${lineProduct.product.description}</td>
@@ -32,7 +31,6 @@
                 </td>
         </tr>
     </c:forEach>
-
     <tr>
         <th>Total</th>
         <td></td>
@@ -40,8 +38,11 @@
             $<fmt:formatNumber value="${sessionScope.cart.checkout()}" pattern="0.00"/>
         </td>
     </tr>
-
 </table>
-
+<br>
+<form action="" method="post">
+    <input type="hidden" name="action" value="return">
+    <input type="submit" name="continueShopping" value="Continue Shopping">
+</form>
 </body>
 </html>
