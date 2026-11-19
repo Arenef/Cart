@@ -38,7 +38,7 @@ public class Cart implements Serializable {
     }
 
     public void updateQuantity(int productCode, int quantity) {
-        if (quantity < 0)
+        if (quantity <= 0)
             return;
         for (int i = 0; i < cart.size(); i++) {
             if (cart.get(i).getProduct().getProductCode() == productCode) {
